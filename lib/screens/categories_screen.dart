@@ -1,4 +1,3 @@
-import 'package:cod3r_navigation/models/category.dart';
 import 'package:flutter/material.dart';
 
 import '../components/category_item.dart';
