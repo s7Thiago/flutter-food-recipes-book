@@ -4,34 +4,51 @@ import 'package:flutter/material.dart';
 import 'categories_meals_screen.dart';
 import 'favorite_screen.dart';
 
-class TabsScreen extends StatelessWidget {
+class TabsScreen extends StatefulWidget {
+  @override
+  _TabsScreenState createState() => _TabsScreenState();
+}
+
+class _TabsScreenState extends State<TabsScreen> {
+  int _selectedScreenIndex = 0;
+  final List<Map<String, Object>> _screens = [
+    {'title': 'Categories List', 'screen': CategoriesScreen()},
+    {'title': 'Favorites List', 'screen': FavoriteScreen()},
+  ];
+
+  _selectScreen(int index) {
+    setState(() {
+      _selectedScreenIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Let\'s s cook'),
-          bottom: TabBar(
-            tabs: [
-              Tab(
-                icon: Icon(Icons.category),
-                text: 'Categories',
-              ),
-              Tab(
-                icon: Icon(Icons.star),
-                text: 'Favorites',
-              ),
-            ],
-          ),
-        ),
-        body: TabBarView(
-          children: [
-            CategoriesScreen(),
-            FavoriteScreen(),
-          ],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(_screens[_selectedScreenIndex]['title']),
       ),
+      body: _screens[_selectedScreenIndex]['screen'],
+      bottomNavigationBar: BottomNavigationBar(
+          onTap: _selectScreen,
+          currentIndex: _selectedScreenIndex,
+          backgroundColor: Theme.of(context).primaryColor,
+          unselectedItemColor: Colors.white70,
+          selectedItemColor: Theme.of(context).accentColor,
+          // type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.category,
+                ),
+                title: Text('Category')),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.star,
+              ),
+              title: Text('Favorites'),
+            ),
+          ]),
     );
   }
 }
