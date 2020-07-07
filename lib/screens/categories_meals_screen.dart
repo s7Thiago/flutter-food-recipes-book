@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/category.dart';
+import '../data/dummy_data.dart';
 
 class CategoriesMealsScreen extends StatelessWidget {
   @override
@@ -7,12 +8,21 @@ class CategoriesMealsScreen extends StatelessWidget {
     // Obtaining the Category object from arguments passed by route
     final category = ModalRoute.of(context).settings.arguments as Category;
 
+    final categoryMeals = DUMMY_MEALS
+        .where(
+          (meal) => meal.categories.contains(category.id),
+        )
+        .toList();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(category.title),
       ),
-      body: Center(
-        child: Text('Recipes by category ${category.id}'),
+      body: ListView.builder(
+        itemCount: categoryMeals.length,
+        itemBuilder: (context, index) {
+          return Text(categoryMeals[index].title);
+        },
       ),
     );
   }
