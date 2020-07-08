@@ -1,9 +1,8 @@
 import 'package:cod3r_navigation/screens/categories_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'categories_meals_screen.dart';
-import 'favorite_screen.dart';
 import '../components/main_drawer.dart';
+import 'favorite_screen.dart';
 
 class TabsScreen extends StatefulWidget {
   @override
